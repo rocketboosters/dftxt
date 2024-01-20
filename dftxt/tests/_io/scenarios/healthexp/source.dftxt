@@ -1,0 +1,4 @@
+index    Year   Country  Spending_USD  Life_Expectancy
+&intidx  &&int           &&float       &&float
+224      2012   Japan    3970.765      83.2
+46       1981   Japan    603.965       76.5

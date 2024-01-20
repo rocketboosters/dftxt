@@ -1,0 +1,12 @@
+{
+  "input":[],
+  "modifiers":{
+    "data_type": null,
+    "index": false,
+    "name_data_type": null,
+    "skip": false,
+    "only_filters": [],
+    "never_filters": []
+  },
+  "serialized":[]
+}

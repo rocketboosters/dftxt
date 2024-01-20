@@ -1,0 +1,16 @@
+{
+  "read": {
+    "args": {}
+  },
+  "write": {
+    "args": {
+      "index": true,
+      "allow_short": true,
+      "line_width": 88
+    }
+  },
+  "index_reference": [
+    8,
+    65
+  ]
+}

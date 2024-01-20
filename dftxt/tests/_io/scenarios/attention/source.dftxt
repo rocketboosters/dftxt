@@ -1,0 +1,6 @@
+index    Unnamed: 0  subject  attention  solutions  score
+&intidx  &&int       &&int               &&int      &&float
+32       32          13       focused    2          5.0
+2        2           3        divided    1          3.0
+20       20          1        divided    2          4.0
+38       38          19       focused    2          6.0

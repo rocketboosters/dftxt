@@ -1,0 +1,4 @@
+{
+  "read": {"args": {}},
+  "write": {"args": {"allow_short": true, "column_width": {"Quotation": 43}}}
+}

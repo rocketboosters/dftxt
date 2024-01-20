@@ -1,0 +1,15 @@
+index       year        month
+&int_index  &dtype=int  &dtype=category:0,Feb,Mar,2,May,Jun,Jul,Aug,Sep,1,Nov,Dec
+12          1950        Jan
+33          1951        Oct
+123         1959        Apr
+132         1960        Jan
+
+---
+
+index    passengers
+&repeat  &dtype=int
+12       115
+33       162
+123      396
+132      417

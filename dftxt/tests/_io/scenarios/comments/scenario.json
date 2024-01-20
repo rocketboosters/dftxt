@@ -1,0 +1,4 @@
+{
+    "read": {"args": {}},
+    "write": {"args": {"line_width": 0, "allow_short": true}}
+}

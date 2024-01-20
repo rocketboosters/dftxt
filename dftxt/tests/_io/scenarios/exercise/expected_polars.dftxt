@@ -1,0 +1,4 @@
+index    Unnamed: 0  id     diet        pulse  time        kind
+&intidx  &&int       &&int  &&category  &&int  &&category  &&category
+8        8           3      low fat     94     30 min      rest
+65       65          22     low fat     112    30 min      running

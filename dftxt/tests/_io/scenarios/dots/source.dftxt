@@ -1,0 +1,9 @@
+index       align  choice  time        coherence     firing_rate
+&int_index                 &dtype=int  &dtype=float  &dtype=float
+56          dots   T1      100         6.4           33.0073349633
+393         dots   T2      720         3.2           41.7160565573
+510         sacc   T1      -40         0.0           65.9860557769
+316         dots   T2      320         6.4           41.2207626677
+504         sacc   T1      -60         0.0           63.9918381337
+610         sacc   T1      280         25.6          7.48532289628
+194         dots   T2      -80         0.0           34.9701072622

@@ -1,0 +1,4 @@
+index    duration  waiting  kind
+&intidx  &&float   &&int
+7        3.6       85       long
+204      4.6       78       long

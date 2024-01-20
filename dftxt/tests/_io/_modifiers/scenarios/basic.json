@@ -1,0 +1,13 @@
+{
+  "input":["&dtype=int", "&index", "&nametype=int", "&if=indexing", "&not=polars"],
+  "modifiers":{
+    "data_type": "int",
+    "index": true,
+    "name_data_type": "int",
+    "skip": false,
+    "only_filters": ["indexing"],
+    "never_filters": ["polars"]
+  },
+  "serialize_args": {"allow_short": true},
+  "serialized":["&intidx", "&ntype=int", "&+indexing", "&-polars"]
+}

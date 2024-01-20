@@ -1,0 +1,5 @@
+index    method           number  orbital_period  mass     distance  year
+&intidx                   &&int   &&float         &&float  &&float   &&int
+506      Radial Velocity  1       4.6455          0.013    24.05     2010
+1022     Transit          1       1.3600309       None     93.0      2012
+907      Microlensing     1       None            None     None      2010

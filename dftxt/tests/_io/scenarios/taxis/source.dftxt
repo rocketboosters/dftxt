@@ -1,0 +1,53 @@
+index       pickup               dropoff              passengers  distance
+&int_index  &dtype=datetime      &dtype=datetime      &dtype=int  &dtype=float
+1544        2019-03-15T08:18:23  2019-03-15T08:24:09  1           0.84
+5845        2019-03-06T10:52:11  2019-03-06T10:54:59  1           0.52
+1930        2019-03-15T17:37:39  2019-03-15T17:48:48  2           1.44
+3092        2019-03-23T23:11:00  2019-03-23T23:29:19  1           4.4
+977         2019-03-01T15:45:19  2019-03-01T15:47:06  1           0.5
+4266        2019-03-18T22:14:18  2019-03-18T22:27:26  5           3.72
+196         2019-03-12T14:39:59  2019-03-12T15:06:34  1           6.5
+6131        2019-03-10T09:56:09  2019-03-10T10:03:05  1           1.63
+2757        2019-03-14T17:46:58  2019-03-14T17:57:10  2           1.41
+
+---
+
+index    fare          tip           tolls         total         color   payment
+&repeat  &dtype=float  &dtype=float  &dtype=float  &dtype=float
+1544     5.5           2.2           0.0           11.0          yellow  credit card
+5845     4.0           0.0           0.0           4.8           green   cash
+1930     9.0           0.0           0.0           13.3          yellow  cash
+3092     16.5          0.0           0.0           20.3          yellow  cash
+977      3.5           0.0           0.0           7.8           yellow  cash
+4266     13.0          2.2           0.0           19.0          yellow  credit card
+196      23.5          0.0           5.76          32.56         yellow  cash
+6131     7.5           2.08          0.0           10.38         green   credit card
+2757     8.5           3.2           0.0           16.0          yellow  credit card
+
+---
+
+index    pickup_zone                  dropoff_zone               pickup_borough
+&repeat
+1544     Lenox Hill West              Upper East Side South      Manhattan
+5845     Central Harlem               Central Harlem             Manhattan
+1930     East Village                 Alphabet City              Manhattan
+3092     Downtown Brooklyn/MetroTech  West Chelsea/Hudson Yards  Brooklyn
+977      Kips Bay                     UN/Turtle Bay South        Manhattan
+4266     West Village                 Lincoln Square West        Manhattan
+196      Times Sq/Theatre District    Williamsburg (North Side)  Manhattan
+6131     Hamilton Heights             West Concourse             Manhattan
+2757     Midtown North                Lincoln Square East        Manhattan
+
+---
+
+index    dropoff_borough
+&repeat
+1544     Manhattan
+5845     Manhattan
+1930     Manhattan
+3092     Manhattan
+977      Manhattan
+4266     Manhattan
+196      Brooklyn
+6131     Bronx
+2757     Manhattan

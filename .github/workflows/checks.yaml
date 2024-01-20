@@ -1,0 +1,39 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Code Check
+on:
+  pull_request: null
+  push:
+    branches:
+    - main
+jobs:
+  linting:
+    name: linting
+    runs-on: ubuntu-latest
+    steps:
+    # https://github.com/actions/checkout
+    - uses: actions/checkout@v4
+    # https://github.com/actions/setup-python
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: poetry
+    - run: poetry install
+    - run: poetry run task lint
+
+  testing:
+    name: testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+    # https://github.com/actions/checkout
+    - uses: actions/checkout@v4
+    # https://github.com/actions/setup-python
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: poetry
+    - run: poetry install
+    - run: poetry run task test

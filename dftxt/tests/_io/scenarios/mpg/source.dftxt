@@ -1,0 +1,11 @@
+index       mpg           cylinders   displacement  horsepower    weight
+&int_index  &dtype=float  &dtype=int  &dtype=float  &dtype=float  &dtype=int
+18          27.0          4           97.0          88.0          2130
+157         15.0          8           350.0         145.0         4440
+
+---
+
+index    acceleration  model_year  origin  name
+&repeat  &dtype=float  &dtype=int
+18       14.5          70          japan   datsun pl510
+157      14.0          75          usa     chevrolet bel air

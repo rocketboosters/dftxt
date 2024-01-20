@@ -1,0 +1,4 @@
+{
+  "read": {"args": {}},
+  "write": {"args": {"repeat_columns": ["account_id"]}}
+}

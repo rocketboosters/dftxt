@@ -1,0 +1,11 @@
+index    Unnamed: 0  id     diet                 pulse  time
+&intidx  &&int       &&int  &&category:no fat,0  &&int  &&category:1 min,15 min,0
+8        8           3      low fat              94     30 min
+65       65          22     low fat              112    30 min
+
+---
+
+index  kind
+&-     &&category:0,walking,1
+8      rest
+65     running

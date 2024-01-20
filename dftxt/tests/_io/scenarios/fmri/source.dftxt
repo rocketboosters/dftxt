@@ -1,0 +1,11 @@
+index    subject  timepoint  event  region    signal
+&intidx           &&int                       &&float
+846      s8       15         cue    parietal  0.0035904133751
+30       s12      16         stim   parietal  -0.0899433633361
+238      s13      1          stim   parietal  -0.0642564530879
+515      s0       18         stim   frontal   -0.0484297385322
+341      s6       5          stim   frontal   0.21348405273
+388      s11      8          stim   frontal   -0.0173469329493
+70       s0       14         stim   parietal  -0.0524187515342
+126      s0       10         stim   parietal  -0.0479149730158
+897      s0       12         cue    parietal  -0.0369433541353

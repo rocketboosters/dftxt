@@ -1,0 +1,6 @@
+index       year        month            passengers
+&int_index  &dtype=int  &dtype=category  &dtype=int
+12          1950        Jan              115
+33          1951        Oct              162
+123         1959        Apr              396
+132         1960        Jan              417

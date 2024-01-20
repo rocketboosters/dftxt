@@ -1,0 +1,9 @@
+Country         Currency  2023-01-01  2022-01-01  2021-01-01  2020-01-01  2019-01-01
+                          &&decimal   &&decimal   &&decimal   &&decimal   &&decimal
+Argentina       Peso      296.154     130.792     95.098      70.635      48.192
+Brazil          Real      4.994       5.165       5.395       5.151       3.946
+Canada          Dollar    1.350       1.301       1.254       1.341       1.327
+Cayman Islands  Dollar    0.833       0.833       0.833       0.833       0.833
+Australia       Dollar    1.506       1.442       1.332       1.452       1.439
+China           Yuan      7.075       6.730       6.452       6.900       6.910
+Euro Zone       Euro      0.924       0.951       0.846       0.877       0.893

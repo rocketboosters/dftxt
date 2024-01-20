@@ -1,0 +1,17 @@
+account_id  created_at            plan_id      country        converted_on
+            &dtype=datetime                                   &dtype=date
+1           2023-04-23T13:01:59Z  foo bar      United States  2023-04-23
+1           2023-04-23T13:01:59Z  foo bar      United States  2023-04-23
+2           2023-10-01T01:21:00Z  spam ham     England        2023-10-01
+3           2023-11-10T00:00:00Z  lorem ipsum  South Korea    2023-11-10
+4           2023-12-09T06:42:02Z  free         Mexico         None
+
+---
+
+account_id  Monthly Revenue  active
+&repeat     &dtype=decimal   &dtype=boolean
+1           25.490           True
+1           25.490           True
+2           99.990           False
+3           149.990          True
+4           None             None

@@ -1,0 +1,5 @@
+index    species  island  bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  sex
+&intidx                   &&float         &&float        &&float            &&float
+334      Gentoo   Biscoe  46.2            14.1           217.0              4375.0       Female
+304      Gentoo   Biscoe  44.9            13.8           212.0              4750.0       Female
+43       Adelie   Dream   44.1            19.7           196.0              4400.0       Male

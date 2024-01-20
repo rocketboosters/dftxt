@@ -1,0 +1,6 @@
+index       Model        Year        Encoder      Task   Score
+&int_index               &dtype=int                      &dtype=float
+15          BiLSTM       2017        LSTM         SST-2  82.8
+8           ERNIE        2019        Transformer  SST-2  97.8
+60          BiLSTM+ELMo  2018        LSTM         RTE    57.4
+18          RoBERTa      2019        Transformer  MRPC   92.3

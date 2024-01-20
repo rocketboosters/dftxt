@@ -1,0 +1,27 @@
+index       total_bill    tip           sex
+&int_index  &dtype=float  &dtype=float  &dtype=category:za
+10          10.27         1.71          Male
+145         8.35          1.5           Female
+36          16.31         2.0           Male
+54          25.56         4.34          Male
+31          18.35         2.5           Male
+
+---
+
+index    smoker                 day                        time
+&repeat  &dtype=category:Yes,0  &dtype=category:1,Fri,2,0  &dtype=category:za
+10       No                     Sun                        Dinner
+145      No                     Thur                       Lunch
+36       No                     Sat                        Dinner
+54       No                     Sun                        Dinner
+31       No                     Sat                        Dinner
+
+---
+
+index    size
+&repeat  &dtype=int
+10       2
+145      2
+36       3
+54       4
+31       4
