@@ -45,6 +45,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: poetry
     # https://github.com/abatilo/actions-poetry/blob/master/action.yml
-    - run: poetry install
+    - run: poetry install --extras=all
     - run: poetry env info
     - run: poetry run task test
