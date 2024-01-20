@@ -27,13 +27,14 @@ jobs:
       run: poetry build
     # https://github.com/actions/upload-artifact
     - name: Store Package Artifacts
-      uses: actions/upload-artifacts@v4
+      uses: actions/upload-artifact@v4
       with:
         name: dist
         path: dist/
 
   publish:
     name: publish
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: pypi
