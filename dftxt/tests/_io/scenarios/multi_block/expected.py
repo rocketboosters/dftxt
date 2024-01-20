@@ -9,11 +9,11 @@ if __name__ == "io_scenario_test":
         {
             "account_id": ["1", "1", "2", "3", "4"],
             "created_at": [
-                pd.Timestamp(2023, 4, 23, 13, 1, 59, tzinfo=datetime.UTC),
-                pd.Timestamp(2023, 4, 23, 13, 1, 59, tzinfo=datetime.UTC),
-                pd.Timestamp(2023, 10, 1, 1, 21, 0, tzinfo=datetime.UTC),
-                pd.Timestamp(2023, 11, 10, 0, 0, 0, tzinfo=datetime.UTC),
-                pd.Timestamp(2023, 12, 9, 6, 42, 2, tzinfo=datetime.UTC),
+                pd.Timestamp(2023, 4, 23, 13, 1, 59, tzinfo=datetime.timezone.utc),
+                pd.Timestamp(2023, 4, 23, 13, 1, 59, tzinfo=datetime.timezone.utc),
+                pd.Timestamp(2023, 10, 1, 1, 21, 0, tzinfo=datetime.timezone.utc),
+                pd.Timestamp(2023, 11, 10, 0, 0, 0, tzinfo=datetime.timezone.utc),
+                pd.Timestamp(2023, 12, 9, 6, 42, 2, tzinfo=datetime.timezone.utc),
             ],
             "plan_id": ["foo bar", "foo bar", "spam ham", "lorem ipsum", "free"],
             "country": [
@@ -47,11 +47,21 @@ if __name__ == "io_scenario_test":
             "created_at": pl.Series(
                 name="created_at",
                 values=[
-                    datetime.datetime(2023, 4, 23, 13, 1, 59, tzinfo=datetime.UTC),
-                    datetime.datetime(2023, 4, 23, 13, 1, 59, tzinfo=datetime.UTC),
-                    datetime.datetime(2023, 10, 1, 1, 21, 0, tzinfo=datetime.UTC),
-                    datetime.datetime(2023, 11, 10, 0, 0, 0, tzinfo=datetime.UTC),
-                    datetime.datetime(2023, 12, 9, 6, 42, 2, tzinfo=datetime.UTC),
+                    datetime.datetime(
+                        2023, 4, 23, 13, 1, 59, tzinfo=datetime.timezone.utc
+                    ),
+                    datetime.datetime(
+                        2023, 4, 23, 13, 1, 59, tzinfo=datetime.timezone.utc
+                    ),
+                    datetime.datetime(
+                        2023, 10, 1, 1, 21, 0, tzinfo=datetime.timezone.utc
+                    ),
+                    datetime.datetime(
+                        2023, 11, 10, 0, 0, 0, tzinfo=datetime.timezone.utc
+                    ),
+                    datetime.datetime(
+                        2023, 12, 9, 6, 42, 2, tzinfo=datetime.timezone.utc
+                    ),
                 ],
                 dtype=pl.Datetime("us", "UTC"),
             ),
