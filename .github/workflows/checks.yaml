@@ -18,6 +18,11 @@ jobs:
       with:
         python-version: "3.12"
         cache: poetry
+    # https://github.com/abatilo/actions-poetry/blob/master/action.yml
+    - run: |
+        pip install --user pipx
+        pipx ensurepath
+    - run: pipx install poetry
     - run: poetry install
     - run: poetry run task lint
 
@@ -35,5 +40,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         cache: poetry
+    # https://github.com/abatilo/actions-poetry/blob/master/action.yml
+    - run: |
+        pip install --user pipx
+        pipx ensurepath
+    - run: pipx install poetry
     - run: poetry install
     - run: poetry run task test
