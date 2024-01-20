@@ -181,13 +181,15 @@ def cast_to(value: typing.Any, data_type: str) -> typing.Any:
         return datetime.date.fromisoformat(value)
 
     if dt in ("timestamp", "datetime", "datetime64"):
-        return datetime.datetime.fromisoformat(value)
+        return datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
 
     if dt.startswith(("timestamp[", "datetime[", "datetime64[")):
         time_zone = pytz.timezone(
             data_type.split("[")[-1].strip().split(",")[-1].strip().split("]")[0]
         )
-        return datetime.datetime.fromisoformat(value).replace(tzinfo=time_zone)
+        return datetime.datetime.fromisoformat(value.replace("Z", "+00:00")).replace(
+            tzinfo=time_zone
+        )
 
     return value
 
