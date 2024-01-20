@@ -1,0 +1,52 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Publish to PyPI
+on:
+  push:
+    tags:
+      # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#patterns-to-match-branches-and-tags
+      - "v[12].[0-9]+.[0-9]+"
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    # https://github.com/actions/checkout
+    - uses: actions/checkout@v4
+    # Poetry must be installed before python setup for caching to work.
+    # https://github.com/actions/setup-python/issues/369
+    - name: Install Poetry
+      run: pipx install poetry
+    # https://github.com/actions/setup-python
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: poetry
+    # https://github.com/abatilo/actions-poetry/blob/master/action.yml
+    - name: Build package
+      run: poetry build
+    # https://github.com/actions/upload-artifact
+    - name: Store Package Artifacts
+      uses: actions/upload-artifacts@v4
+      with:
+        name: dist
+        path: dist/
+
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/dftxt
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+    # https://github.com/actions/download-artifact
+    - name: Get Package Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist/
+    # https://github.com/marketplace/actions/pypi-publish
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
