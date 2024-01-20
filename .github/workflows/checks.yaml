@@ -13,17 +13,17 @@ jobs:
     steps:
     # https://github.com/actions/checkout
     - uses: actions/checkout@v4
+    # Poetry must be installed before python setup for caching to work.
+    # https://github.com/actions/setup-python/issues/369
+    - name: Install Poetry
+      run: pipx install poetry
     # https://github.com/actions/setup-python
     - uses: actions/setup-python@v5
       with:
         python-version: "3.12"
         cache: poetry
-    # https://github.com/abatilo/actions-poetry/blob/master/action.yml
-    - run: |
-        pip install --user pipx
-        pipx ensurepath
-    - run: pipx install poetry
     - run: poetry install
+    - run: poetry env info
     - run: poetry run task lint
 
   testing:
@@ -35,15 +35,16 @@ jobs:
     steps:
     # https://github.com/actions/checkout
     - uses: actions/checkout@v4
+    # Poetry must be installed before python setup for caching to work.
+    # https://github.com/actions/setup-python/issues/369
+    - name: Install Poetry
+      run: pipx install poetry
     # https://github.com/actions/setup-python
     - uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
         cache: poetry
     # https://github.com/abatilo/actions-poetry/blob/master/action.yml
-    - run: |
-        pip install --user pipx
-        pipx ensurepath
-    - run: pipx install poetry
     - run: poetry install
+    - run: poetry env info
     - run: poetry run task test
