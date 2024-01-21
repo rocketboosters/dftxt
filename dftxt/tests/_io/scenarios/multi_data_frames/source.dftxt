@@ -1,0 +1,26 @@
+# Sale prices for the upcoming promotion at Vella Rack.
+
+--- handbags ---
+
+sku    price      sale_price  brand         name
+&&int  &&decimal  &&decimal
+123    1689.99    1497.00     Saint Below   Lala Leather Camera Bag
+124    1490.00    1366.97     Cobo Tau      Cali Calfskin Leather Tote
+125    3200.00    3079.97     Saint Below   Envelope Calfskin Shoulder Bag
+
+--- shoes ---
+
+sku    price      sale_price  brand         name
+&&int  &&decimal  &&decimal
+210    220.00     140.00      AM Sedel      Bianka Slingback Pump
+211    190.00     159.99      Fad by Zelmy  Diva Kitten Heel Pointed Toe Pump
+
+--- skirts ---
+
+sku    price      sale_price  brand      name
+&&int  &&decimal  &&decimal
+365    155.00     135.00      Wing Fall  Rib Pencil Skirt
+366    99.00      59.00       Fedam      Suited Midi Column Skirt
+367    43.00      30.10       Gong Lab   Faux Leather Miniskirt
+368    188.00     94.00       Reform     Tazz Denim Max Skirt (Galaway)
+369    295.00     177.00      Reform     Side Slit Stretch Velvet Pencil Skirt

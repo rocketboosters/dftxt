@@ -5,7 +5,6 @@ index       year        month
 123         1959        Apr
 132         1960        Jan
 
----
 
 index    passengers
 &repeat  &dtype=int

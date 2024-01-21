@@ -10,7 +10,6 @@ index    survived  pclass  sex     age      sibsp  parch  fare     embarked
 349      0         3       male    42.0     0      0      8.6625   S
 36       1         3       male    None     0      0      7.2292   C
 
----
 
 index  class          who    adult_male  deck                      embark_town
 &-     &&category:az         &&bool      &&category:A,B,C,D,1,F,G
@@ -24,7 +23,6 @@ index  class          who    adult_male  deck                      embark_town
 349    Third          man    True        None                      Southampton
 36     Third          man    True        None                      Cherbourg
 
----
 
 index  alive  alone
 &-            &&bool

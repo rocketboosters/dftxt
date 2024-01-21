@@ -10,7 +10,6 @@ index    survived  pclass  sex     age      sibsp  parch  fare     embarked
 349      0         3       male    42.0     0      0      8.6625   S
 36       1         3       male    None     0      0      7.2292   C
 
----
 
 index  class       who    adult_male  deck        embark_town  alive  alone
 &-     &&category         &&boolean   &&category                      &&boolean

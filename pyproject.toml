@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dftxt"
-version = "1.0.0"
+version = "1.0.1"
 description = "Human-friendly, VCS-friendly file format for Python Pandas and Polars DataFrames."
 authors = ["Scott Ernst <swernst@gmail.com>"]
 license = "Apache Version 2.0"

@@ -6,7 +6,7 @@ account_id    created_at                  plan_id         country
 3             2023-11-10T00:00:00Z        lorem ipsum     South Korea
 4             2023-12-09T06:42:02Z        free            Mexico
 
----
+
 
 account_id    converted_on    Monthly Revenue         active
 &exclude      &dtype=date     &dtype=decimal(12, 3)   &dtype=boolean

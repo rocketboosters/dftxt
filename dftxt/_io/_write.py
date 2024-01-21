@@ -352,7 +352,59 @@ def writes(
             modifier_count=modifier_count,
         )
         blocks.append(block)
-    return "\n\n---\n\n".join(blocks)
+    return "\n\n\n".join(blocks)
+
+
+def writes_all(
+    data_frames: typing.Union[
+        typing.Mapping[str, typing.Union["pd.DataFrame", "pl.DataFrame"]],
+        typing.Sequence[typing.Union["pd.DataFrame", "pl.DataFrame"]],
+    ],
+    line_width: int = 88,
+    allow_short: bool = False,
+    repeat_columns: typing.Union[None, str, typing.Sequence[str]] = None,
+    only_filters: typing.Optional[
+        typing.Mapping[typing.Any, typing.Sequence[str]]
+    ] = None,
+    never_filters: typing.Optional[
+        typing.Mapping[typing.Any, typing.Sequence[str]]
+    ] = None,
+    modifier_prefix: str = "&",
+    index: typing.Union[bool, str, typing.Sequence[str], None] = False,
+    column_width: typing.Union[int, typing.Dict[str, int]] = -1,
+):
+    """Write the serialized DataFrames to a dftxt string."""
+    if isinstance(data_frames, dict):
+        frames = list(data_frames.items())
+    else:
+        frames = [
+            (None, typing.cast(typing.Union["pd.DataFrame", "pl.DataFrame"], df))
+            for df in data_frames
+        ]
+
+    chunks: typing.List[str] = []
+    for name, data_frame in frames:
+        if name:
+            prefix = "\n" if len(chunks) > 0 else ""
+            chunks.append(f"{prefix}--- {name} ---\n")
+        elif len(chunks) > 0:
+            chunks.append("\n---")
+
+        chunks.append(
+            writes(
+                data_frame=data_frame,
+                line_width=line_width,
+                allow_short=allow_short,
+                repeat_columns=repeat_columns,
+                only_filters=only_filters,
+                never_filters=never_filters,
+                modifier_prefix=modifier_prefix,
+                index=index,
+                column_width=column_width,
+            )
+        )
+
+    return "\n".join(chunks)
 
 
 def write(
@@ -372,10 +424,48 @@ def write(
     index: typing.Union[bool, str, typing.Sequence[str], None] = False,
     column_width: typing.Union[int, typing.Dict[str, int]] = -1,
 ):
-    """Write DataFrame to the specified file."""
+    """Write the serialized DataFrame to the specified file."""
     pathlib.Path(path).expanduser().resolve().write_text(
         writes(
             data_frame=data_frame,
+            line_width=line_width,
+            allow_short=allow_short,
+            modifier_prefix=modifier_prefix,
+            repeat_columns=repeat_columns,
+            only_filters=only_filters,
+            never_filters=never_filters,
+            index=index,
+            column_width=column_width,
+        )
+        + "\n",
+        encoding=encoding,
+    )
+
+
+def write_all(
+    path: typing.Union[str, pathlib.Path],
+    data_frames: typing.Union[
+        typing.Mapping[str, typing.Union["pd.DataFrame", "pl.DataFrame"]],
+        typing.Sequence[typing.Union["pd.DataFrame", "pl.DataFrame"]],
+    ],
+    line_width: int = 88,
+    allow_short: bool = False,
+    repeat_columns: typing.Union[None, str, typing.Sequence[str]] = None,
+    only_filters: typing.Optional[
+        typing.Mapping[typing.Any, typing.Sequence[str]]
+    ] = None,
+    never_filters: typing.Optional[
+        typing.Mapping[typing.Any, typing.Sequence[str]]
+    ] = None,
+    modifier_prefix: str = "&",
+    encoding: str = "utf-8",
+    index: typing.Union[bool, str, typing.Sequence[str], None] = False,
+    column_width: typing.Union[int, typing.Dict[str, int]] = -1,
+):
+    """Write multiple, serialized Pandas/Polars DataFrames to the specified file."""
+    pathlib.Path(path).expanduser().resolve().write_text(
+        writes_all(
+            data_frames=data_frames,
             line_width=line_width,
             allow_short=allow_short,
             modifier_prefix=modifier_prefix,

@@ -6,7 +6,6 @@ index       total_bill    tip           sex              smoker
 54          25.56         4.34          Male             No
 31          18.35         2.5           Male             No
 
----
 
 index    day              time             size
 &repeat  &dtype=category  &dtype=category  &dtype=int

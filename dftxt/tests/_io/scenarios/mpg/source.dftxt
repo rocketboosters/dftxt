@@ -3,7 +3,6 @@ index       mpg           cylinders   displacement  horsepower    weight
 18          27.0          4           97.0          88.0          2130
 157         15.0          8           350.0         145.0         4440
 
----
 
 index    acceleration  model_year  origin  name
 &repeat  &dtype=float  &dtype=int

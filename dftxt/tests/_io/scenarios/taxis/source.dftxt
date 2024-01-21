@@ -10,7 +10,6 @@ index       pickup               dropoff              passengers  distance
 6131        2019-03-10T09:56:09  2019-03-10T10:03:05  1           1.63
 2757        2019-03-14T17:46:58  2019-03-14T17:57:10  2           1.41
 
----
 
 index    fare          tip           tolls         total         color   payment
 &repeat  &dtype=float  &dtype=float  &dtype=float  &dtype=float
@@ -24,7 +23,6 @@ index    fare          tip           tolls         total         color   payment
 6131     7.5           2.08          0.0           10.38         green   credit card
 2757     8.5           3.2           0.0           16.0          yellow  credit card
 
----
 
 index    pickup_zone                  dropoff_zone               pickup_borough
 &repeat
@@ -38,7 +36,6 @@ index    pickup_zone                  dropoff_zone               pickup_borough
 6131     Hamilton Heights             West Concourse             Manhattan
 2757     Midtown North                Lincoln Square East        Manhattan
 
----
 
 index    dropoff_borough
 &repeat

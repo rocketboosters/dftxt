@@ -6,7 +6,6 @@ index       total_bill    tip           sex
 54          25.56         4.34          Male
 31          18.35         2.5           Male
 
----
 
 index    smoker                 day                        time
 &repeat  &dtype=category:Yes,0  &dtype=category:1,Fri,2,0  &dtype=category:za
@@ -16,7 +15,6 @@ index    smoker                 day                        time
 54       No                     Sun                        Dinner
 31       No                     Sat                        Dinner
 
----
 
 index    size
 &repeat  &dtype=int

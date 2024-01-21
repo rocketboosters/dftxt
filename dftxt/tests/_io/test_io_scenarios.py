@@ -70,12 +70,21 @@ def _run(
         )
     )
 
-    observed = dftxt.read(expected_read_path, kind=kind, **read_args)
-    try:
-        _assert_frame_equal(observed, locals[f"expected_{kind}"])
-    except Exception:  # pragma: no cover
-        print("FAILED TO COMPARE READ DATA FRAME TO EXPECTED.PY")
-        raise
+    loaded_from_source = dftxt.read_all(expected_read_path, kind=kind, **read_args)
+    for observed in loaded_from_source:
+        try:
+            expected_key = f"expected_{kind}"
+            if len(loaded_from_source) > 1:
+                expected_key = "{prefix}_{suffix}".format(
+                    prefix=expected_key,
+                    suffix=observed.sourced_name
+                    if observed.sourced_name
+                    else observed.index,
+                )
+            _assert_frame_equal(observed.frame, locals[expected_key])
+        except Exception:  # pragma: no cover
+            print("FAILED TO COMPARE READ DATA FRAME TO EXPECTED.PY")
+            raise
 
     fid, path = tempfile.mkstemp(suffix=".dftxt")
     observed_path = pathlib.Path(path).resolve()
@@ -85,13 +94,17 @@ def _run(
         write_args: typing.Dict[str, typing.Any] = scenario.get("write", {}).get(
             "args", {}
         )
-        dftxt.write(
-            data_frame=observed,
+
+        should_write_named = all(loaded_from_source.sourced_frame_names)
+        dftxt.write_all(
+            data_frames=loaded_from_source.to_dict()
+            if should_write_named
+            else loaded_from_source.to_tuple(),
             path=observed_path,
             **write_args,
         )
         observed_write = observed_path.read_text("utf-8")
-        observed_read_again = dftxt.read(observed_path, kind=kind, **read_args)
+        loaded_from_write = dftxt.read_all(observed_path, kind=kind, **read_args)
     finally:
         os.remove(observed_path)
 
@@ -118,11 +131,18 @@ def _run(
         "".join(diff_lines), observed_write
     )
 
-    try:
-        _assert_frame_equal(observed_read_again, observed)
-    except Exception:  # pragma: no cover
-        print("FAILED TO COMPARE RE-READ DATA FRAME TO ORIGINAL READ")
-        raise
+    zipped: typing.Iterable[
+        typing.Tuple[
+            typing.Union["pd.DataFrame", "pl.DataFrame"],
+            typing.Union["pd.DataFrame", "pl.DataFrame"],
+        ]
+    ] = zip(list(loaded_from_write.to_tuple()), list(loaded_from_source.to_tuple()))
+    for observed_again, observed_before in zipped:
+        try:
+            _assert_frame_equal(observed_again, observed_before)
+        except Exception:  # pragma: no cover
+            print("FAILED TO COMPARE RE-READ DATA FRAME TO ORIGINAL READ")
+            raise
 
 
 @mark.parametrize("folder", _SCENARIOS)

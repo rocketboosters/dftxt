@@ -3,7 +3,6 @@ index    Unnamed: 0  id     diet                 pulse  time
 8        8           3      low fat              94     30 min
 65       65          22     low fat              112    30 min
 
----
 
 index  kind
 &-     &&category:0,walking,1

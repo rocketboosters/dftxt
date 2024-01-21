@@ -1,0 +1,37 @@
+--- handbags ---
+
+sku         price           sale_price      brand        name
+&dtype=int  &dtype=decimal  &dtype=decimal
+123         1689.99         1497.00         Saint Below  Lala Leather Camera Bag
+124         1490.00         1366.97         Cobo Tau     Cali Calfskin Leather Tote
+125         3200.00         3079.97         Saint Below  Envelope Calfskin Shoulder Bag
+
+--- shoes ---
+
+sku         price           sale_price      brand
+&dtype=int  &dtype=decimal  &dtype=decimal
+210         220.00          140.00          AM Sedel
+211         190.00          159.99          Fad by Zelmy
+
+
+name
+Bianka Slingback Pump
+Diva Kitten Heel Pointed Toe Pump
+
+--- skirts ---
+
+sku         price           sale_price      brand
+&dtype=int  &dtype=decimal  &dtype=decimal
+365         155.00          135.00          Wing Fall
+366         99.00           59.00           Fedam
+367         43.00           30.10           Gong Lab
+368         188.00          94.00           Reform
+369         295.00          177.00          Reform
+
+
+name
+Rib Pencil Skirt
+Suited Midi Column Skirt
+Faux Leather Miniskirt
+Tazz Denim Max Skirt (Galaway)
+Side Slit Stretch Velvet Pencil Skirt
