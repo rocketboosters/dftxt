@@ -170,12 +170,12 @@ class RawColumn:
             # If only filters have been set and none are satisfied.
             or (
                 len(self.modifiers.only_filters) > 0
-                and len(filters.union(self.modifiers.only_filters)) == 0
+                and len(filters.intersection(self.modifiers.only_filters)) == 0
             )
             # If never filters have been set and at least one are satisfied.
             or (
                 len(self.modifiers.never_filters) > 0
-                and len(filters.union(self.modifiers.never_filters)) == 0
+                and len(filters.intersection(self.modifiers.never_filters)) > 0
             )
         )
 

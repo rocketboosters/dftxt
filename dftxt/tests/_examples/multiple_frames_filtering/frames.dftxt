@@ -1,0 +1,18 @@
+--- people ---
+
+Name           Birth Month  Favorite Movie                     Budget ($M)  Box Office ($M)
+               &-expected                                      &dtype=int   &dtype=decimal
+                                                               &+expected   &+expected
+Jane Doe       February     Back to the Future                 19           388.8
+John Doe       April        Harry Potter & the Goblet of Fire  150          896.8
+Anna Johnson   November     Frozen                             150          1280.0
+Steve Simpson  June         Avengers: Infinity War             400          2052.0
+
+--- movies ---
+
+Movie                               Budget ($M)  Box Office ($M)
+                                    &dtype=int   &dtype=decimal
+Avengers: Infinity War              400          2052.0
+Back to the Future                  19           388.8
+Frozen                              150          1280.0
+Harry Potter & the Goblet of Fire   150          896.8
