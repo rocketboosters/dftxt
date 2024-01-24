@@ -67,6 +67,16 @@ Clarissa Dalloway  Mrs. Dalloway          1925
 Toad               The Wind & the Willow  1906
 ```
 
+It's also possible to embed dftxt into Markdown files with fenced code blocks that use
+the `df` or `dftxt` type signifier. Multiple fenced code blocks will be collectively
+extracted into the loaded DataFrame, which makes inline commenting of blocks quite
+useful.
+
+For examples of what that looks like see:
+
+- [Markdown with dftxt Example](./dftxt/tests/_io/_markdown/scenarios/multiple_frames/source.md)
+- [Single DataFrame broken out across multiple blocks](./dftxt/tests/_io/_markdown/scenarios/single_frame/source.md)
+
 ## Benefits
 
 The benefits of the dftxt DataFrame serialization format include:
@@ -193,6 +203,20 @@ Euro Zone       Euro      0.924       0.951       0.846       0.877       0.893
 
 # The values here are yearly average currency exchange rates converting into USD.
 ```
+
+#### Embedded in Markdown
+
+Markdown is a fairly ubiquitous way to create human-readable documentation that also
+renders nicely in IDEs and code collaboration tools. As such, dftxt supports embedding
+dftxt data within Markdown as fenced code blocks (triple backticks) that have the `df`
+or `dftxt` specifier after them. It's possible to specify multiple DataFrames this way
+and break DataFrames up into multiple markdown fenced code blocks for inline commenting
+where desirable.
+
+For examples of what that looks like see:
+
+- [Markdown with dftxt Example](./dftxt/tests/_io/_markdown/scenarios/multiple_frames/source.md)
+- [Single DataFrame broken out across multiple blocks](./dftxt/tests/_io/_markdown/scenarios/single_frame/source.md)
 
 ### 3. Diff/Code Review Friendly
 

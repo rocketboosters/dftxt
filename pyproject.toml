@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dftxt"
-version = "1.0.2"
+version = "1.0.3"
 description = "Human-friendly, VCS-friendly file format for Python Pandas and Polars DataFrames."
 authors = ["Scott Ernst <swernst@gmail.com>"]
 license = "Apache Version 2.0"
@@ -52,7 +52,7 @@ pydocstyle = "pydocstyle ."
 format = "ruff format ."
 lint = "ruff check . && task mypy && task pydocstyle"
 test = "pytest . --cov-report=term-missing --cov-report=xml --cov=.  -n auto"
-check = "task style && task lint && task test"
+check = "task format && task lint && task test"
 
 [build-system]
 requires = ["poetry-core"]

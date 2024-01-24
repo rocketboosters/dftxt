@@ -1,0 +1,24 @@
+--- people ---
+
+Name           Birth Month  Favorite Movie
+Jane Doe       February     Back to the Future
+John Doe       April        Harry Potter & the Goblet of Fire
+Anna Johnson   November     Frozen
+Steve Simpson  June         Avengers: Infinity War
+
+
+Name           Favorite Book
+&-
+Jane Doe       Emma
+John Doe       Harry Potter & the Goblet of Fire
+Anna Johnson   The Girl with the Dragon Tattoo
+Steve Simpson  The Three Musketeers
+
+--- books ---
+
+Name                               Published  Page Count
+                                   &&int      &&int
+The Three Musketeers               1844       700
+The Girl with the Dragon Tattoo    2005       544
+Harry Potter & the Goblet of Fire  2000       636
+Emma                               1816       1036

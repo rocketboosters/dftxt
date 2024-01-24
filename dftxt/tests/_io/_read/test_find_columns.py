@@ -5,14 +5,14 @@ from pytest import mark
 from dftxt._io import _read
 
 
-class TestScenario(typing.TypedDict):
+class Scenario(typing.TypedDict):
     """Interface for scenario tests."""
 
     headers: str
     expected: typing.List["_read.ColumnBounds"]
 
 
-_SCENARIOS: typing.Dict[str, "TestScenario"] = {
+_SCENARIOS: typing.Dict[str, "Scenario"] = {
     "basic": {
         "headers": "foo   bar     hello world    spam      ",
         "expected": [

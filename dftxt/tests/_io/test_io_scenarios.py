@@ -50,6 +50,38 @@ def _assert_frame_equal(
         raise
 
 
+def _get_read_path(directory: pathlib.Path) -> pathlib.Path:
+    """Get the path to the expected source file for the scenario."""
+    finder = (
+        p
+        for filename in ("source.md", "source.dftxt")
+        if (p := directory / filename).exists()
+    )
+    path = next(finder, None)
+    if path is None:
+        raise ValueError(
+            f"No source.(dftxt|md) file found for scenario {directory.name}"
+        )
+    return path
+
+
+def _get_expected_write_path(directory: pathlib.Path, kind: str) -> pathlib.Path:
+    """Get the path to the expected output file for the scenario."""
+    finder = (
+        p
+        for filename in (
+            f"expected_{kind}.dftxt",
+            "expected.dftxt",
+            "source.dftxt",
+        )
+        if (p := directory / filename).exists()
+    )
+    path = next(finder, None)
+    if path is None:
+        raise ValueError(f"No expected.dftxt file found for scenario {directory.name}")
+    return path
+
+
 def _run(
     directory: pathlib.Path,
     scenario: typing.Dict[str, typing.Any],
@@ -57,18 +89,8 @@ def _run(
     kind: typing.Literal["pandas", "polars"],
 ):
     read_args: typing.Dict[str, typing.Any] = scenario.get("read", {}).get("args", {})
-    expected_read_path = directory / "source.dftxt"
-    expected_write_path = next(
-        (
-            p
-            for filename in [
-                f"expected_{kind}.dftxt",
-                "expected.dftxt",
-                "source.dftxt",
-            ]
-            if (p := directory / filename).exists()
-        )
-    )
+    expected_read_path = _get_read_path(directory)
+    expected_write_path = _get_expected_write_path(directory, kind)
 
     loaded_from_source = dftxt.read_all(expected_read_path, kind=kind, **read_args)
     for observed in loaded_from_source:
@@ -155,8 +177,12 @@ def test_io_scenario(folder: str):
     )
     locals: typing.Dict[str, typing.Any] = {}
 
+    expected_path = directory.joinpath("expected.py")
+    if not expected_path.exists():
+        raise FileNotFoundError(f"No expected.py file found for scenario {folder}")
+
     exec(
-        directory.joinpath("expected.py").read_text("utf-8"),
+        expected_path.read_text("utf-8"),
         {
             **globals(),
             "__file__": str(directory / "expected.py"),

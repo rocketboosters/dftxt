@@ -4,6 +4,7 @@ import re
 import typing
 
 from . import _cast
+from . import _markdown
 from . import _modifiers
 
 if typing.TYPE_CHECKING:  # pragma: no cover
@@ -434,6 +435,7 @@ def reads(
     table: str,
     kind: typing.Literal["pandas"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> "pd.DataFrame":
     """Read dftxt string into a Pandas DataFrame."""
@@ -445,6 +447,7 @@ def reads(
     table: str,
     kind: typing.Literal["polars"],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> "pl.DataFrame":
     """Read dftxt string into a Polars DataFrame."""
@@ -455,11 +458,17 @@ def reads(
     table: str,
     kind: typing.Literal["pandas", "polars"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ):
     """Read dftxt string into a Pandas or Polars DataFrame."""
+    if markdown:
+        source_text = _markdown.extract(table)
+    else:
+        source_text = table
+
     blocks = _read_blocks(
-        table.replace("\r", "").replace("\t", "  ").split("\n"),
+        source_text.replace("\r", "").replace("\t", "  ").split("\n"),
         modifier_prefix=modifier_prefix,
     )
     distinct_filters = set(filters or [])
@@ -480,6 +489,7 @@ def reads_all(
     tables: str,
     kind: typing.Literal["pandas"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pd.DataFrame"]:
     """Read dftxt string into a tuple of Pandas DataFrames."""
@@ -491,6 +501,7 @@ def reads_all(
     tables: str,
     kind: typing.Literal["polars"],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pl.DataFrame"]:
     """Read dftxt string into a tuple of Polars DataFrames."""
@@ -501,26 +512,32 @@ def reads_all(
     tables: str,
     kind: typing.Literal["pandas", "polars"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ):
     """Read dftxt string into a tuple of Pandas or Polars DataFrames."""
+    if markdown:
+        source_text = _markdown.extract(tables)
+    else:
+        source_text = tables
     offset = 0
     next_name = ""
     sourced_names: typing.List[typing.Optional[str]] = []
     data_frames: typing.Dict[str, typing.Union["pl.DataFrame", "pd.DataFrame"]] = {}
-    while offset < len(tables):
-        match = _DATA_FRAME_SEPARATOR_REGEX.search(tables, pos=offset)
+    while offset < len(source_text):
+        match = _DATA_FRAME_SEPARATOR_REGEX.search(source_text, pos=offset)
         start = offset
-        end = len(tables) if not match else match.start()
-        offset = len(tables) if not match else match.end()
+        end = len(source_text) if not match else match.start()
+        offset = len(source_text) if not match else match.end()
         if offset == start:
             continue
 
         data_frame = reads(
-            table=tables[start:end],
+            table=source_text[start:end],
             kind=kind,
             filters=filters,
             modifier_prefix=modifier_prefix,
+            markdown=False,
         )
         sourced_name = next_name or None
         frame_name = next_name or f"data_frame_{len(data_frames) + 1}"
@@ -542,13 +559,18 @@ def reads_all(
 def reads_to_pandas(
     table: str,
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> "pd.DataFrame":
     """Read the table to a Pandas DataFrame."""
     return typing.cast(
         pd.DataFrame,
         reads(
-            table=table, kind="pandas", filters=filters, modifier_prefix=modifier_prefix
+            table=table,
+            kind="pandas",
+            filters=filters,
+            modifier_prefix=modifier_prefix,
+            markdown=markdown,
         ),
     )
 
@@ -556,6 +578,7 @@ def reads_to_pandas(
 def reads_all_to_pandas(
     tables: str,
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pd.DataFrame"]:
     """Read the table to Pandas DataFrames."""
@@ -564,19 +587,25 @@ def reads_all_to_pandas(
         kind="pandas",
         filters=filters,
         modifier_prefix=modifier_prefix,
+        markdown=markdown,
     )
 
 
 def reads_to_polars(
     table: str,
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> "pl.DataFrame":
     """Read the table to a Polars DataFrame."""
     return typing.cast(
         pl.DataFrame,
         reads(
-            table=table, kind="polars", filters=filters, modifier_prefix=modifier_prefix
+            table=table,
+            kind="polars",
+            filters=filters,
+            modifier_prefix=modifier_prefix,
+            markdown=markdown,
         ),
     )
 
@@ -584,6 +613,7 @@ def reads_to_polars(
 def reads_all_to_polars(
     tables: str,
     filters: typing.Union[str, typing.Sequence[str], None] = None,
+    markdown: bool = False,
     modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pl.DataFrame"]:
     """Read the tables to Polars DataFrames."""
@@ -592,6 +622,7 @@ def reads_all_to_polars(
         kind="polars",
         filters=filters,
         modifier_prefix=modifier_prefix,
+        markdown=markdown,
     )
 
 
@@ -600,8 +631,9 @@ def read(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["pandas"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> "pd.DataFrame":
     """Read dftxt file into a Pandas DataFrame."""
     ...
@@ -612,8 +644,9 @@ def read(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["polars"],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> "pl.DataFrame":
     """Read dftxt file into a Polars DataFrame."""
     ...
@@ -623,15 +656,19 @@ def read(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["pandas", "polars"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ):
     """Read dftxt file into a Pandas or Polars DataFrame."""
+    source_path = pathlib.Path(path).expanduser().resolve()
+    is_markdown = markdown or source_path.name.endswith(".md")
     return reads(
-        table=pathlib.Path(path).expanduser().resolve().read_text(encoding),
+        table=source_path.read_text(encoding),
         kind=kind,
         filters=filters,
         modifier_prefix=modifier_prefix,
+        markdown=is_markdown,
     )
 
 
@@ -640,8 +677,9 @@ def read_all(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["pandas"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pd.DataFrame"]:
     """Read dftxt file into Pandas DataFrames."""
     ...
@@ -652,8 +690,9 @@ def read_all(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["polars"],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pl.DataFrame"]:
     """Read dftxt file into Polars DataFrames."""
     ...
@@ -663,23 +702,28 @@ def read_all(
     path: typing.Union[pathlib.Path, str],
     kind: typing.Literal["pandas", "polars"] = "pandas",
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ):
     """Read dftxt file into Pandas or Polars DataFrames."""
+    source_path = pathlib.Path(path).expanduser().resolve()
+    is_markdown = markdown or source_path.name.endswith(".md")
     return reads_all(
-        tables=pathlib.Path(path).expanduser().resolve().read_text(encoding),
+        tables=source_path.read_text(encoding),
         kind=kind,
         filters=filters,
         modifier_prefix=modifier_prefix,
+        markdown=is_markdown,
     )
 
 
 def read_to_pandas(
     path: typing.Union[pathlib.Path, str],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> "pd.DataFrame":
     """Read dftxt file into a Pandas DataFrame."""
     return typing.cast(
@@ -690,6 +734,7 @@ def read_to_pandas(
             filters=filters,
             modifier_prefix=modifier_prefix,
             encoding=encoding,
+            markdown=markdown,
         ),
     )
 
@@ -697,8 +742,9 @@ def read_to_pandas(
 def read_all_to_pandas(
     path: typing.Union[pathlib.Path, str],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pd.DataFrame"]:
     """Read dftxt file into Pandas DataFrames."""
     return read_all(
@@ -707,14 +753,16 @@ def read_all_to_pandas(
         filters=filters,
         modifier_prefix=modifier_prefix,
         encoding=encoding,
+        markdown=markdown,
     )
 
 
 def read_to_polars(
     path: typing.Union[pathlib.Path, str],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> "pl.DataFrame":
     """Read dftxt file into a Pandas DataFrame."""
     return typing.cast(
@@ -725,6 +773,7 @@ def read_to_polars(
             filters=filters,
             modifier_prefix=modifier_prefix,
             encoding=encoding,
+            markdown=markdown,
         ),
     )
 
@@ -732,8 +781,9 @@ def read_to_polars(
 def read_all_to_polars(
     path: typing.Union[pathlib.Path, str],
     filters: typing.Union[str, typing.Sequence[str], None] = None,
-    modifier_prefix: str = "&",
+    markdown: bool = False,
     encoding: str = "utf-8",
+    modifier_prefix: str = "&",
 ) -> LoadedDataFrames["pl.DataFrame"]:
     """Read dftxt file into a Pandas DataFrame."""
     return read_all(
@@ -742,4 +792,5 @@ def read_all_to_polars(
         filters=filters,
         modifier_prefix=modifier_prefix,
         encoding=encoding,
+        markdown=markdown,
     )
