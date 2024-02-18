@@ -3,7 +3,7 @@ import pathlib
 
 from pytest import mark
 
-from dftxt._io import _modifiers
+from dftxt import _modifiers
 
 _DIRECTORY = pathlib.Path(__file__).resolve().parent / "scenarios"
 _SCENARIOS = [p.name[:-5] for p in _DIRECTORY.iterdir() if p.name.endswith(".json")]

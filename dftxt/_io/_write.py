@@ -3,8 +3,8 @@ import pathlib
 import textwrap
 import typing
 
-from . import _cast
-from . import _modifiers
+from .. import _cast
+from .. import _modifiers
 
 if typing.TYPE_CHECKING:  # pragma: no cover
     import pandas as pd
@@ -188,9 +188,11 @@ def _render_block(
             modifier_prefix=modifier_prefix,
             is_repeat=block_index > 0,
             allow_short=allow_short,
-            max_width=column_width.get(repeat.name, -1)
-            if isinstance(column_width, dict)
-            else column_width,
+            max_width=(
+                column_width.get(repeat.name, -1)
+                if isinstance(column_width, dict)
+                else column_width
+            ),
         )
         widths.append(width)
         cell_grid.append(cells)
@@ -204,9 +206,11 @@ def _render_block(
             modifier_count=modifier_count,
             is_repeat=False,
             allow_short=allow_short,
-            max_width=column_width.get(column.name, -1)
-            if isinstance(column_width, dict)
-            else column_width,
+            max_width=(
+                column_width.get(column.name, -1)
+                if isinstance(column_width, dict)
+                else column_width
+            ),
         )
         should_start_new_block = (
             # Everything goes in one block if the line width is <= 0.
@@ -256,9 +260,9 @@ def _extract_repeat_columns(
 
     if isinstance(repeat_columns, str):
         found = next((c for c in non_index_columns if c.name == repeat_columns), None)
-        return index_columns + [
-            c for c in non_index_columns if c != found
-        ], [] if found is None else [found]
+        return index_columns + [c for c in non_index_columns if c != found], (
+            [] if found is None else [found]
+        )
 
     names = typing.cast(typing.List[str], repeat_columns)
     # Match the order specified by the user for the repeats.
